@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IT Help Desk Reports — Florida Polytechnic University</title>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Exo 2', sans-serif;
+    background: #F0EDF6;
+    color: #1a1a2e;
+    min-height: 100vh;
+  }
+
+  header {
+    background: linear-gradient(135deg, #2E1A4A 0%, #501D83 100%);
+    padding: 2.5rem 2rem 2rem;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(46,26,74,.4);
+  }
+
+  header img {
+    height: 48px;
+    margin-bottom: 1rem;
+    opacity: .92;
+  }
+
+  header h1 {
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: .02em;
+    line-height: 1.2;
+  }
+
+  header p {
+    margin-top: .5rem;
+    font-size: .95rem;
+    color: #B095DE;
+    font-weight: 500;
+  }
+
+  main {
+    max-width: 900px;
+    margin: 2.5rem auto;
+    padding: 0 1.5rem 4rem;
+  }
+
+  .section-label {
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #501D83;
+    margin-bottom: 1rem;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.5rem 1.5rem 1.25rem;
+    text-decoration: none;
+    color: inherit;
+    border: 1.5px solid #e3ddf0;
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    transition: transform .15s, box-shadow .15s, border-color .15s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--accent, #501D83);
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(80,29,131,.15);
+    border-color: var(--accent, #501D83);
+  }
+
+  .card-icon {
+    font-size: 1.6rem;
+    line-height: 1;
+  }
+
+  .card-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1a1a2e;
+  }
+
+  .card-desc {
+    font-size: .85rem;
+    color: #5a5a7a;
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .card-badge {
+    display: inline-block;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: .2rem .55rem;
+    border-radius: 999px;
+    background: var(--badge-bg, #f0edf6);
+    color: var(--badge-fg, #501D83);
+    align-self: flex-start;
+    margin-top: .25rem;
+  }
+
+  footer {
+    text-align: center;
+    font-size: .78rem;
+    color: #9987bb;
+    padding-bottom: 2rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>IT Help Desk Reports</h1>
+  <p>Florida Polytechnic University &mdash; Information Services &amp; Digital Transformation</p>
+</header>
+
+<main>
+
+  <p class="section-label">Live Dashboards</p>
+  <div class="grid">
+
+    <a class="card" href="report.html" style="--accent:#501D83; --badge-bg:#f0edf6; --badge-fg:#501D83;">
+      <div class="card-icon">📊</div>
+      <div class="card-title">Daily Status Report</div>
+      <div class="card-desc">Open tickets, today's activity, escalations, and workload by assignee. Updated hourly.</div>
+      <span class="card-badge">Hourly</span>
+    </a>
+
+    <a class="card" href="perf_report.html" style="--accent:#009FDF; --badge-bg:#e6f6fd; --badge-fg:#007ab8;">
+      <div class="card-icon">🏆</div>
+      <div class="card-title">Performance Review</div>
+      <div class="card-desc">Date-range metrics, CSAT scores, SLA rates, and ranked leaderboards for T1 &amp; T2.</div>
+      <span class="card-badge">On Demand</span>
+    </a>
+
+    <a class="card" href="weekly_report.html" style="--accent:#B095DE; --badge-bg:#f5f0ff; --badge-fg:#7c5cbf;">
+      <div class="card-icon">📅</div>
+      <div class="card-title">Weekly Summary</div>
+      <div class="card-desc">Executive digest for the current week — volume, resolution trends, and top issues.</div>
+      <span class="card-badge">Weekly</span>
+    </a>
+
+  </div>
+
+  <p class="section-label">Analysis &amp; Review</p>
+  <div class="grid">
+
+    <a class="card" href="impact_report.html" style="--accent:#501D83; --badge-bg:#f0edf6; --badge-fg:#501D83;">
+      <div class="card-icon">📈</div>
+      <div class="card-title">Impact Comparison</div>
+      <div class="card-desc">Before/after leadership comparison across resolution time, SLA, CSAT, and ticket volume.</div>
+      <span class="card-badge">Period Analysis</span>
+    </a>
+
+    <a class="card" href="staff_overview.html" style="--accent:#009FDF; --badge-bg:#e6f6fd; --badge-fg:#007ab8;">
+      <div class="card-icon">👤</div>
+      <div class="card-title">Staff Review</div>
+      <div class="card-desc">Per-person trend report across recent weeks — designed for 1:1s and performance conversations.</div>
+      <span class="card-badge">1:1 Prep</span>
+    </a>
+
+  </div>
+
+</main>
+
+<footer>
+  Reports are generated automatically &mdash; data sourced from Jira Service Management.
+</footer>
+
+</body>
+</html>
