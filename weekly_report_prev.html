@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IT Help Desk &ndash; Weekly Summary &ndash; March 23 – 27, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --purple: #501D83; --plum: #2E1A4A; --blue: #009FDF;
+  --pix: #B095DE;    --bg:   #F0EDF6; --card: #FFFFFF;
+  --border: #E2D9F3; --text: #1E1033; --muted: #6B7280;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Exo 2','Segoe UI',system-ui,sans-serif; background: var(--bg); color: var(--text); font-size: 14px; }
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Header */
+.hdr { background: linear-gradient(135deg,var(--plum) 0%,var(--purple) 100%); color: #fff; padding: 0 36px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 3px 14px rgba(0,0,0,.35); }
+.hdr-brand { display: flex; align-items: center; gap: 16px; padding: 16px 0; }
+.hdr-logo  { height: 40px; width: auto; flex-shrink: 0; }
+.hdr-title h1 { font-size: 1.1rem; font-weight: 800; }
+.hdr-title p  { font-size: .7rem; opacity: .65; margin-top: 3px; }
+.hdr-meta  { text-align: right; font-size: .72rem; opacity: .8; line-height: 1.65; }
+.hdr-meta strong { display: block; color: var(--pix); font-size: .92rem; margin-bottom: 1px; }
+
+/* Status bar */
+.status-bar { background: #FEE2E2; border-bottom: 3px solid #FECACA; padding: 11px 36px; display: flex; align-items: flex-start; gap: 12px; }
+.status-pill { display: inline-flex; align-items: center; gap: 6px; background: #991B1B; color: #fff; font-size: .72rem; font-weight: 800; padding: 4px 12px; border-radius: 99px; white-space: nowrap; flex-shrink: 0; margin-top: 1px; }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; background: #fff; }
+.status-narrative { font-size: .82rem; color: #374151; line-height: 1.6; }
+
+/* Page */
+.page { max-width: 1200px; margin: 0 auto; padding: 26px 28px 48px; }
+
+/* KPI row */
+.kpi-row { display: grid; grid-template-columns: repeat(6,1fr); gap: 12px; margin-bottom: 28px; }
+@media (max-width:1100px) { .kpi-row { grid-template-columns: repeat(3,1fr); } }
+@media (max-width:640px)  { .kpi-row { grid-template-columns: repeat(2,1fr); } }
+.kpi-card  { border-radius: 10px; padding: 16px 18px; box-shadow: 0 1px 8px rgba(80,29,131,.09); }
+.kpi-label { font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); margin-bottom: 8px; }
+.kpi-value { font-size: 2.4rem; font-weight: 800; line-height: 1; }
+.kpi-sub   { font-size: .68rem; color: #6B7280; margin-top: 6px; }
+
+/* Sections */
+.section { margin-bottom: 30px; }
+.sec-hdr  { display: flex; align-items: center; gap: 10px; margin-bottom: 13px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+.sec-hdr h2 { font-size: .88rem; font-weight: 800; color: var(--purple); text-transform: uppercase; letter-spacing: .5px; }
+.sec-chip   { font-size: .65rem; font-weight: 700; background: rgba(80,29,131,.1); color: var(--purple); padding: 2px 8px; border-radius: 99px; }
+
+/* Tables */
+.data-tbl { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 10px; overflow: hidden; box-shadow: 0 1px 8px rgba(80,29,131,.08); font-size: .82rem; }
+.data-tbl thead tr { background: linear-gradient(90deg,var(--plum),var(--purple)); color: #fff; }
+.data-tbl th  { padding: 9px 12px; font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; text-align: left; white-space: nowrap; }
+.data-tbl td  { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.data-tbl tbody tr:last-child td { border-bottom: none; }
+.data-tbl tbody tr:hover { background: #FDFBFF; }
+.n-cell   { text-align: center; }
+.sum-cell { max-width: 340px; }
+.sla-row  { background: #FFF1F2 !important; }
+.sla-row td:first-child { border-left: 3px solid #DC2626; }
+
+/* Tier pills */
+.pill-t1 { display:inline-block; font-size:.62rem; font-weight:700; padding:2px 8px; border-radius:99px; background:rgba(0,159,223,.1); color:#0369A1; }
+.pill-t2 { display:inline-block; font-size:.62rem; font-weight:700; padding:2px 8px; border-radius:99px; background:rgba(80,29,131,.12); color:#501D83; }
+
+/* Bar */
+.bar-wrap { height: 8px; background: #EDE9F8; border-radius: 99px; overflow: hidden; min-width: 80px; }
+.bar-fill { height: 100%; background: var(--purple); border-radius: 99px; }
+
+/* Misc */
+.dim      { color: #9CA3AF; }
+.no-data  { color: var(--muted); font-style: italic; text-align: center; padding: 16px 0; }
+.good-note { color: #166534; font-weight: 600; font-size: .84rem; padding: 6px 0; }
+.tbl-note  { font-size: .73rem; color: var(--muted); margin-top: 8px; font-style: italic; }
+.esc-hdr   { font-size: .85rem; font-weight: 700; margin: 4px 0 8px; }
+.esc-count { font-size: .75rem; font-weight: 600; background: rgba(0,0,0,.08); padding: 1px 7px; border-radius: 99px; margin-left: 4px; }
+.footer    { text-align: center; font-size: .7rem; color: #94A3B8; padding: 20px; border-top: 1px solid var(--border); }
+.footer strong { color: var(--pix); }
+
+/* Person cards */
+.pc-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(260px,1fr)); gap: 14px; }
+.pc-card { background: var(--card); border-radius: 10px; padding: 16px; box-shadow: 0 1px 8px rgba(80,29,131,.09); border-top: 3px solid var(--purple); }
+.pc-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.pc-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg,var(--plum),var(--purple)); color: #fff; font-size: .85rem; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.pc-name-block { min-width: 0; }
+.pc-name { font-size: .9rem; font-weight: 700; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 4px; }
+.pc-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+.pc-stat { text-align: center; }
+.pc-stat-val { font-size: 1.25rem; font-weight: 800; line-height: 1.1; }
+.pc-stat-lbl { font-size: .58rem; font-weight: 600; text-transform: uppercase; letter-spacing: .4px; color: var(--muted); margin-top: 2px; }
+
+/* Print */
+@media print {
+  .hdr, .status-bar, .kpi-card { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .hdr { box-shadow: none; }
+  body { background: #fff; font-size: 12px; }
+  .data-tbl { box-shadow: none; border: 1px solid #ddd; }
+  .kpi-card  { box-shadow: none; border: 1px solid #ddd !important; }
+  .section   { page-break-inside: avoid; }
+  .kpi-row   { grid-template-columns: repeat(3,1fr); }
+  a[href]::after { content: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-brand">
+    <img class="hdr-logo" src="logos/FLPolyFullLogo_WHITE-FC.png" alt="Florida Polytechnic University">
+    <div class="hdr-title">
+      <h1>IT Help Desk &ndash; Weekly Summary</h1>
+      <p>Florida Polytechnic University &nbsp;&middot;&nbsp; Project ISD2</p>
+    </div>
+  </div>
+  <div class="hdr-meta">
+    <a href="index.html" style="color:rgba(255,255,255,.65);font-size:.78rem;font-weight:600;text-decoration:none;letter-spacing:.05em;margin-bottom:.35rem;display:block;">&#8592; All Reports</a>
+    <strong>March 23 – 27, 2026</strong>
+    Generated Wednesday, April 1, 2026 at 8:49 PM
+  </div>
+</header>
+
+<div class="status-bar">
+  <div class="status-pill"><div class="status-dot"></div>Action Required</div>
+  <span class="status-narrative">During the week of March 23 – 27, 2026, the IT Help Desk received 123 new support requests and resolved 106 tickets. 86% of new requests were resolved within the week. SLA compliance (5-business-day target) was 71%, with an average resolution time of 8.6 business days. This week saw 19 tickets escalated to Tier 3, 28 to Tier 2, 3 de-escalated. 164 tickets remain open, of which 117 exceed the 5-day SLA threshold; 32 tickets are currently open at Tier 3.</span>
+</div>
+
+<div class="page">
+
+  <!-- KPIs -->
+  <div class="kpi-row">
+    <div class="kpi-card" style="border-top:4px solid #501D83;background:#FFFFFF"><div class="kpi-label">New Tickets</div><div class="kpi-value" style="color:#501D83">123</div><div class="kpi-sub">submitted this week</div><div class="kpi-wow"><span class='wow-up'>&#9650; +33 vs last week</span></div></div>
+  <div class="kpi-card" style="border-top:4px solid #16A34A;background:#FFFFFF"><div class="kpi-label">Resolved</div><div class="kpi-value" style="color:#16A34A">106</div><div class="kpi-sub">closed this week</div><div class="kpi-wow"><span class='wow-dn'>&#9660; -4 vs last week</span></div></div>
+  <div class="kpi-card" style="border-top:4px solid #B45309;background:#FFFFFF"><div class="kpi-label">Resolution Rate</div><div class="kpi-value" style="color:#B45309">86%</div><div class="kpi-sub">of new requests closed</div></div>
+  <div class="kpi-card" style="border-top:4px solid #B45309;background:#FFFFFF"><div class="kpi-label">SLA Compliance</div><div class="kpi-value" style="color:#B45309">71%</div><div class="kpi-sub">5-business-day target</div><div class="kpi-wow"><span class='wow-up'>&#9650; +16 vs last week</span></div></div>
+  <div class="kpi-card" style="border-top:4px solid #DC2626;background:#FFF1F2"><div class="kpi-label">Open Over SLA</div><div class="kpi-value" style="color:#DC2626">117</div><div class="kpi-sub">require immediate attention</div><div class="kpi-wow"><span class='wow-dn'>&#9650; +117 vs last week</span></div></div>
+  <div class="kpi-card" style="border-top:4px solid #DC2626;background:#FFFFFF"><div class="kpi-label">Escalations</div><div class="kpi-value" style="color:#DC2626">47</div><div class="kpi-sub">T2: 28  |  T3: 19</div></div>
+  </div>
+
+  <!-- Team Performance -->
+  <div class="section">
+    <div class="sec-hdr">
+      <h2>Team Performance</h2>
+      <span class="sec-chip">19 members</span>
+    </div>
+    <table class="data-tbl">
+      <thead><tr>
+        <th>Name</th><th>Tier</th>
+        <th class="n-cell">Resolved</th><th class="n-cell">Created</th>
+        <th class="n-cell">Open Now</th><th class="n-cell">Avg Res. Time</th>
+        <th class="n-cell">Open Over SLA</th><th class="n-cell">Comments</th>
+      </tr></thead>
+      <tbody><tr><td><strong>Karen Porter</strong></td><td><span class="pill-t2">T2 Staff</span></td><td class='n-cell'><strong style='color:#16A34A'>4</strong></td><td class='n-cell'>4</td><td class='n-cell'>14</td><td class='n-cell'><span style='color:#16A34A;font-weight:700'>2.8d</span></td><td class='n-cell'><span style='color:#DC2626;font-weight:700'>8</span></td><td class='n-cell'>18</td></tr>
+<tr><td><strong>Michael Rice</strong></td><td><span class="pill-t2">T2 Staff</span></td><td class='n-cell'><strong style='color:#16A34A'>13</strong></td><td class='n-cell'>16</td><td class='n-cell'>35</td><td class='n-cell'><span style='color:#DC2626;font-weight:700'>27.3d</span></td><td class='n-cell'><span style='color:#DC2626;font-weight:700'>28</span></td><td class='n-cell'>28</td></tr>
+<tr><td><strong>Miguel Carvajal</strong></td><td><span class="pill-t2">T2 Staff</span></td><td class='n-cell'><strong style='color:#16A34A'>7</strong></td><td class='n-cell'>10</td><td class='n-cell'>6</td><td class='n-cell'><span style='color:#16A34A;font-weight:700'>0.4d</span></td><td class='n-cell'><span style="color:#16A34A">&#10003;</span></td><td class='n-cell'>31</td></tr>
+<tr><td><strong>Joel Wood</strong></td><td><span class="pill-t2">T2 Staff</span></td><td class='n-cell'><strong style='color:#16A34A'>1</strong></td><td class='n-cell'>3</td><td class='n-cell'>13</td><td class='n-cell'><span style='color:#DC2626;font-weight:700'>47d</span></td><td class='n-cell'><span style='color:#DC2626;font-weight:700'>11</span></td><td class='n-cell'><span class="dim">0</span></td></tr>
+<tr><td><strong>Alec Lewis</strong></td><td><span class="pill-t2">T2 Staff</span></td><td class='n-cell'><strong style='color:#16A34A'>5</strong></td><td class='n-cell'>1</td><td class='n-cell'>3</td><td class='n-cell'><span style='color:#B45309;font-weight:700'>6.2d</span></td><td class='n-cell'><span style="color:#16A34A">&#10003;</span></td><td class='n-cell'>9</td></tr>
+<tr><td><strong>Guillermo Fernandez</strong></td><td><span class="pill-t2">T2 Staff</span></td><td class='n-cell'><strong style='color:#16A34A'>1</strong></td><td class='n-cell'>1</td><td class='n-cell'>26</td><td class='n-cell'><span style='color:#DC2626;font-weight:700'>90d</span></td><td class='n-cell'><span style='color:#DC2626;font-weight:700'>23</span></td><td class='n-cell'>4</td></tr>
+<tr><td><strong>Jean-Paul Bouvier</strong></td><td><span class="pill-t2">T2 Staff</span></td><td class='n-cell'><strong style='color:#16A34A'>7</strong></td><td class='n-cell'>12</td><td class='n-cell'>7</td><td class='n-cell'><span style='color:#DC2626;font-weight:700'>15.6d</span></td><td class='n-cell'><span style='color:#DC2626;font-weight:700'>5</span></td><td class='n-cell'>15</td></tr>
+<tr><td><strong>Nathan Duarte Cader</strong></td><td><span class="pill-t1">T1 Student</span></td><td class='n-cell'><strong style='color:#16A34A'>1</strong></td><td class='n-cell'>2</td><td class='n-cell'>2</td><td class='n-cell'><span style='color:#16A34A;font-weight:700'>0d</span></td><td class='n-cell'><span style='color:#DC2626;font-weight:700'>2</span></td><td class='n-cell'>1</td></tr>
+<tr><td><strong>Mynor Mendez</strong></td><td><span class="pill-t1">T1 Student</span></td><td class='n-cell'><strong style='color:#16A34A'>2</strong></td><td class='n-cell'>2</td><td class='n-cell'>2</td><td class='n-cell'><span style='color:#16A34A;font-weight:700'>0d</span></td><td class='n-cell'><span style="color:#16A34A">&#10003;</span></td><td class='n-cell'>9</td></tr>
+<tr><td><strong>Muneeb Elyaman</strong></td><td><span class="pill-t1">T1 Student</span></td><td class='n-cell'><strong style='color:#16A34A'>6</strong></td><td class='n-cell'>3</td><td class='n-cell'>3</td><td class='n-cell'><span style='color:#DC2626;font-weight:700'>19.8d</span></td><td class='n-cell'><span style="color:#16A34A">&#10003;</span></td><td class='n-cell'>14</td></tr>
+<tr><td><strong>Tyler Reuter</strong></td><td><span class="pill-t1">T1 Student</span></td><td class='n-cell'><strong style='color:#16A34A'>4</strong></td><td class='n-cell'>5</td><td class='n-cell'>1</td><td class='n-cell'><span style='color:#16A34A;font-weight:700'>0d</span></td><td class='n-cell'><span style="color:#16A34A">&#10003;</span></td><td class='n-cell'>9</td></tr>
+<tr><td><strong>Sirish Gurung</strong></td><td><span class="pill-t1">T1 Student</span></td><td class='n-cell'><span class="dim">0</span></td><td class='n-cell'>1</td><td class='n-cell'>0</td><td class='n-cell'><span class="dim">â€”</span></td><td class='n-cell'><span style="color:#16A34A">&#10003;</span></td><td class='n-cell'>8</td></tr>
+<tr><td><strong>Reinaldo Roig</strong></td><td><span class="pill-t1">T1 Student</span></td><td class='n-cell'><strong style='color:#16A34A'>1</strong></td><td class='n-cell'>1</td><td class='n-cell'>0</td><td class='n-cell'><span style='color:#16A34A;font-weight:700'>2d</span></td><td class='n-cell'><span style="color:#16A34A">&#10003;</span></td><td class='n-cell'>3</td></tr>
+<tr><td><strong>Demitry Box-Louine</strong></td><td><span class="pill-t1">T1 Student</span></td><td class='n-cell'><strong style='color:#16A34A'>8</strong></td><td class='n-cell'>8</td><td class='n-cell'>2</td><td class='n-cell'><span style='color:#16A34A;font-weight:700'>1.9d</span></td><td class='n-cell'><span style="color:#16A34A">&#10003;</span></td><td class='n-cell'>26</td></tr>
+<tr><td><strong>Anthony Corrales Zapata</strong></td><td><span class="pill-t1">T1 Student</span></td><td class='n-cell'><strong style='color:#16A34A'>2</strong></td><td class='n-cell'>2</td><td class='n-cell'>1</td><td class='n-cell'><span style='color:#16A34A;font-weight:700'>1d</span></td><td class='n-cell'><span style="color:#16A34A">&#10003;</span></td><td class='n-cell'>10</td></tr>
+<tr><td><strong>Allie Rodriguez</strong></td><td><span class="pill-t1">T1 Student</span></td><td class='n-cell'><strong style='color:#16A34A'>2</strong></td><td class='n-cell'>2</td><td class='n-cell'>0</td><td class='n-cell'><span style='color:#16A34A;font-weight:700'>0d</span></td><td class='n-cell'><span style="color:#16A34A">&#10003;</span></td><td class='n-cell'>5</td></tr>
+<tr><td><strong>Joshua Gottus</strong></td><td><span class="pill-t1">T1 Student</span></td><td class='n-cell'><strong style='color:#16A34A'>8</strong></td><td class='n-cell'>8</td><td class='n-cell'>2</td><td class='n-cell'><span style='color:#16A34A;font-weight:700'>0.1d</span></td><td class='n-cell'><span style="color:#16A34A">&#10003;</span></td><td class='n-cell'>34</td></tr>
+<tr><td><strong>Jayson Santiago</strong></td><td><span class="pill-t1">T1 Student</span></td><td class='n-cell'><strong style='color:#16A34A'>1</strong></td><td class='n-cell'>2</td><td class='n-cell'>1</td><td class='n-cell'><span style='color:#16A34A;font-weight:700'>0d</span></td><td class='n-cell'><span style="color:#16A34A">&#10003;</span></td><td class='n-cell'>2</td></tr>
+<tr><td><strong>Ian Lopez</strong></td><td><span class="pill-t1">T1 Student</span></td><td class='n-cell'><strong style='color:#16A34A'>4</strong></td><td class='n-cell'>3</td><td class='n-cell'>2</td><td class='n-cell'><span style='color:#DC2626;font-weight:700'>8.8d</span></td><td class='n-cell'><span style="color:#16A34A">&#10003;</span></td><td class='n-cell'>8</td></tr></tbody>
+    </table>
+    
+  </div>
+
+  <!-- T2 Staff Cards -->
+  <div class="section">
+    <div class="sec-hdr">
+      <h2>T2 &mdash; Full-time Staff</h2>
+      <span class="sec-chip">7 members</span>
+    </div>
+    <div class="pc-grid"><div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-avatar">KP</div>
+    <div class="pc-name-block">
+      <div class="pc-name">Karen Porter</div>
+      <span class="pill-t2">T2 Staff</span>
+    </div>
+  </div>
+  <div class="pc-stats">
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#16A34A">4</div><div class="pc-stat-lbl">Resolved</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">4</div><div class="pc-stat-lbl">New</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">14</div><div class="pc-stat-lbl">Open</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">18</div><div class="pc-stat-lbl">Comments</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style='color:#16A34A;font-weight:700'>2.8d</span></div><div class="pc-stat-lbl">Avg Time</div></div>
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#16A34A">100%</div><div class="pc-stat-lbl">SLA %</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style='color:#DC2626;font-weight:700'>8</span></div><div class="pc-stat-lbl">Over SLA</div></div>
+  </div>
+</div><div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-avatar">MR</div>
+    <div class="pc-name-block">
+      <div class="pc-name">Michael Rice</div>
+      <span class="pill-t2">T2 Staff</span>
+    </div>
+  </div>
+  <div class="pc-stats">
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#16A34A">13</div><div class="pc-stat-lbl">Resolved</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">16</div><div class="pc-stat-lbl">New</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">35</div><div class="pc-stat-lbl">Open</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">28</div><div class="pc-stat-lbl">Comments</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style='color:#DC2626;font-weight:700'>27.3d</span></div><div class="pc-stat-lbl">Avg Time</div></div>
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#DC2626">31%</div><div class="pc-stat-lbl">SLA %</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style='color:#DC2626;font-weight:700'>28</span></div><div class="pc-stat-lbl">Over SLA</div></div>
+  </div>
+</div><div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-avatar">MC</div>
+    <div class="pc-name-block">
+      <div class="pc-name">Miguel Carvajal</div>
+      <span class="pill-t2">T2 Staff</span>
+    </div>
+  </div>
+  <div class="pc-stats">
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#16A34A">7</div><div class="pc-stat-lbl">Resolved</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">10</div><div class="pc-stat-lbl">New</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">6</div><div class="pc-stat-lbl">Open</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">31</div><div class="pc-stat-lbl">Comments</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style='color:#16A34A;font-weight:700'>0.4d</span></div><div class="pc-stat-lbl">Avg Time</div></div>
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#16A34A">100%</div><div class="pc-stat-lbl">SLA %</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style="color:#16A34A">&#10003;</span></div><div class="pc-stat-lbl">Over SLA</div></div>
+  </div>
+</div><div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-avatar">JW</div>
+    <div class="pc-name-block">
+      <div class="pc-name">Joel Wood</div>
+      <span class="pill-t2">T2 Staff</span>
+    </div>
+  </div>
+  <div class="pc-stats">
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#16A34A">1</div><div class="pc-stat-lbl">Resolved</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">3</div><div class="pc-stat-lbl">New</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">13</div><div class="pc-stat-lbl">Open</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">0</div><div class="pc-stat-lbl">Comments</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style='color:#DC2626;font-weight:700'>47d</span></div><div class="pc-stat-lbl">Avg Time</div></div>
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#DC2626">0%</div><div class="pc-stat-lbl">SLA %</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style='color:#DC2626;font-weight:700'>11</span></div><div class="pc-stat-lbl">Over SLA</div></div>
+  </div>
+</div><div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-avatar">AL</div>
+    <div class="pc-name-block">
+      <div class="pc-name">Alec Lewis</div>
+      <span class="pill-t2">T2 Staff</span>
+    </div>
+  </div>
+  <div class="pc-stats">
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#16A34A">5</div><div class="pc-stat-lbl">Resolved</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">1</div><div class="pc-stat-lbl">New</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">3</div><div class="pc-stat-lbl">Open</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">9</div><div class="pc-stat-lbl">Comments</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style='color:#B45309;font-weight:700'>6.2d</span></div><div class="pc-stat-lbl">Avg Time</div></div>
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#DC2626">40%</div><div class="pc-stat-lbl">SLA %</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style="color:#16A34A">&#10003;</span></div><div class="pc-stat-lbl">Over SLA</div></div>
+  </div>
+</div><div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-avatar">GF</div>
+    <div class="pc-name-block">
+      <div class="pc-name">Guillermo Fernandez</div>
+      <span class="pill-t2">T2 Staff</span>
+    </div>
+  </div>
+  <div class="pc-stats">
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#16A34A">1</div><div class="pc-stat-lbl">Resolved</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">1</div><div class="pc-stat-lbl">New</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">26</div><div class="pc-stat-lbl">Open</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">4</div><div class="pc-stat-lbl">Comments</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style='color:#DC2626;font-weight:700'>90d</span></div><div class="pc-stat-lbl">Avg Time</div></div>
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#DC2626">0%</div><div class="pc-stat-lbl">SLA %</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style='color:#DC2626;font-weight:700'>23</span></div><div class="pc-stat-lbl">Over SLA</div></div>
+  </div>
+</div><div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-avatar">JB</div>
+    <div class="pc-name-block">
+      <div class="pc-name">Jean-Paul Bouvier</div>
+      <span class="pill-t2">T2 Staff</span>
+    </div>
+  </div>
+  <div class="pc-stats">
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#16A34A">7</div><div class="pc-stat-lbl">Resolved</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">12</div><div class="pc-stat-lbl">New</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">7</div><div class="pc-stat-lbl">Open</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">15</div><div class="pc-stat-lbl">Comments</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style='color:#DC2626;font-weight:700'>15.6d</span></div><div class="pc-stat-lbl">Avg Time</div></div>
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#DC2626">57%</div><div class="pc-stat-lbl">SLA %</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style='color:#DC2626;font-weight:700'>5</span></div><div class="pc-stat-lbl">Over SLA</div></div>
+  </div>
+</div></div>
+  </div>
+
+  <!-- T1 Student Cards -->
+  <div class="section">
+    <div class="sec-hdr">
+      <h2>T1 &mdash; Student Workers</h2>
+      <span class="sec-chip">12 members</span>
+    </div>
+    <div class="pc-grid"><div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-avatar">ND</div>
+    <div class="pc-name-block">
+      <div class="pc-name">Nathan Duarte Cader</div>
+      <span class="pill-t1">T1 Student</span>
+    </div>
+  </div>
+  <div class="pc-stats">
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#16A34A">1</div><div class="pc-stat-lbl">Resolved</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">2</div><div class="pc-stat-lbl">New</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">2</div><div class="pc-stat-lbl">Open</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">1</div><div class="pc-stat-lbl">Comments</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style='color:#16A34A;font-weight:700'>0d</span></div><div class="pc-stat-lbl">Avg Time</div></div>
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#DC2626">0%</div><div class="pc-stat-lbl">SLA %</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style='color:#DC2626;font-weight:700'>2</span></div><div class="pc-stat-lbl">Over SLA</div></div>
+  </div>
+</div><div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-avatar">MM</div>
+    <div class="pc-name-block">
+      <div class="pc-name">Mynor Mendez</div>
+      <span class="pill-t1">T1 Student</span>
+    </div>
+  </div>
+  <div class="pc-stats">
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#16A34A">2</div><div class="pc-stat-lbl">Resolved</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">2</div><div class="pc-stat-lbl">New</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">2</div><div class="pc-stat-lbl">Open</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">9</div><div class="pc-stat-lbl">Comments</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style='color:#16A34A;font-weight:700'>0d</span></div><div class="pc-stat-lbl">Avg Time</div></div>
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#16A34A">100%</div><div class="pc-stat-lbl">SLA %</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style="color:#16A34A">&#10003;</span></div><div class="pc-stat-lbl">Over SLA</div></div>
+  </div>
+</div><div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-avatar">ME</div>
+    <div class="pc-name-block">
+      <div class="pc-name">Muneeb Elyaman</div>
+      <span class="pill-t1">T1 Student</span>
+    </div>
+  </div>
+  <div class="pc-stats">
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#16A34A">6</div><div class="pc-stat-lbl">Resolved</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">3</div><div class="pc-stat-lbl">New</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">3</div><div class="pc-stat-lbl">Open</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">14</div><div class="pc-stat-lbl">Comments</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style='color:#DC2626;font-weight:700'>19.8d</span></div><div class="pc-stat-lbl">Avg Time</div></div>
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#DC2626">33%</div><div class="pc-stat-lbl">SLA %</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style="color:#16A34A">&#10003;</span></div><div class="pc-stat-lbl">Over SLA</div></div>
+  </div>
+</div><div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-avatar">TR</div>
+    <div class="pc-name-block">
+      <div class="pc-name">Tyler Reuter</div>
+      <span class="pill-t1">T1 Student</span>
+    </div>
+  </div>
+  <div class="pc-stats">
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#16A34A">4</div><div class="pc-stat-lbl">Resolved</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">5</div><div class="pc-stat-lbl">New</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">1</div><div class="pc-stat-lbl">Open</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">9</div><div class="pc-stat-lbl">Comments</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style='color:#16A34A;font-weight:700'>0d</span></div><div class="pc-stat-lbl">Avg Time</div></div>
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#16A34A">100%</div><div class="pc-stat-lbl">SLA %</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style="color:#16A34A">&#10003;</span></div><div class="pc-stat-lbl">Over SLA</div></div>
+  </div>
+</div><div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-avatar">SG</div>
+    <div class="pc-name-block">
+      <div class="pc-name">Sirish Gurung</div>
+      <span class="pill-t1">T1 Student</span>
+    </div>
+  </div>
+  <div class="pc-stats">
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#16A34A">0</div><div class="pc-stat-lbl">Resolved</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">1</div><div class="pc-stat-lbl">New</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">0</div><div class="pc-stat-lbl">Open</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">8</div><div class="pc-stat-lbl">Comments</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span class="dim">N/A</span></div><div class="pc-stat-lbl">Avg Time</div></div>
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#9CA3AF"><span class="dim">N/A</span></div><div class="pc-stat-lbl">SLA %</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style="color:#16A34A">&#10003;</span></div><div class="pc-stat-lbl">Over SLA</div></div>
+  </div>
+</div><div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-avatar">RR</div>
+    <div class="pc-name-block">
+      <div class="pc-name">Reinaldo Roig</div>
+      <span class="pill-t1">T1 Student</span>
+    </div>
+  </div>
+  <div class="pc-stats">
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#16A34A">1</div><div class="pc-stat-lbl">Resolved</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">1</div><div class="pc-stat-lbl">New</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">0</div><div class="pc-stat-lbl">Open</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">3</div><div class="pc-stat-lbl">Comments</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style='color:#16A34A;font-weight:700'>2d</span></div><div class="pc-stat-lbl">Avg Time</div></div>
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#DC2626">0%</div><div class="pc-stat-lbl">SLA %</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style="color:#16A34A">&#10003;</span></div><div class="pc-stat-lbl">Over SLA</div></div>
+  </div>
+</div><div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-avatar">DB</div>
+    <div class="pc-name-block">
+      <div class="pc-name">Demitry Box-Louine</div>
+      <span class="pill-t1">T1 Student</span>
+    </div>
+  </div>
+  <div class="pc-stats">
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#16A34A">8</div><div class="pc-stat-lbl">Resolved</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">8</div><div class="pc-stat-lbl">New</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">2</div><div class="pc-stat-lbl">Open</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">26</div><div class="pc-stat-lbl">Comments</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style='color:#16A34A;font-weight:700'>1.9d</span></div><div class="pc-stat-lbl">Avg Time</div></div>
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#B45309">75%</div><div class="pc-stat-lbl">SLA %</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style="color:#16A34A">&#10003;</span></div><div class="pc-stat-lbl">Over SLA</div></div>
+  </div>
+</div><div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-avatar">AC</div>
+    <div class="pc-name-block">
+      <div class="pc-name">Anthony Corrales Zapata</div>
+      <span class="pill-t1">T1 Student</span>
+    </div>
+  </div>
+  <div class="pc-stats">
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#16A34A">2</div><div class="pc-stat-lbl">Resolved</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">2</div><div class="pc-stat-lbl">New</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">1</div><div class="pc-stat-lbl">Open</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">10</div><div class="pc-stat-lbl">Comments</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style='color:#16A34A;font-weight:700'>1d</span></div><div class="pc-stat-lbl">Avg Time</div></div>
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#16A34A">100%</div><div class="pc-stat-lbl">SLA %</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style="color:#16A34A">&#10003;</span></div><div class="pc-stat-lbl">Over SLA</div></div>
+  </div>
+</div><div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-avatar">AR</div>
+    <div class="pc-name-block">
+      <div class="pc-name">Allie Rodriguez</div>
+      <span class="pill-t1">T1 Student</span>
+    </div>
+  </div>
+  <div class="pc-stats">
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#16A34A">2</div><div class="pc-stat-lbl">Resolved</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">2</div><div class="pc-stat-lbl">New</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">0</div><div class="pc-stat-lbl">Open</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">5</div><div class="pc-stat-lbl">Comments</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style='color:#16A34A;font-weight:700'>0d</span></div><div class="pc-stat-lbl">Avg Time</div></div>
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#16A34A">100%</div><div class="pc-stat-lbl">SLA %</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style="color:#16A34A">&#10003;</span></div><div class="pc-stat-lbl">Over SLA</div></div>
+  </div>
+</div><div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-avatar">JG</div>
+    <div class="pc-name-block">
+      <div class="pc-name">Joshua Gottus</div>
+      <span class="pill-t1">T1 Student</span>
+    </div>
+  </div>
+  <div class="pc-stats">
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#16A34A">8</div><div class="pc-stat-lbl">Resolved</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">8</div><div class="pc-stat-lbl">New</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">2</div><div class="pc-stat-lbl">Open</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">34</div><div class="pc-stat-lbl">Comments</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style='color:#16A34A;font-weight:700'>0.1d</span></div><div class="pc-stat-lbl">Avg Time</div></div>
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#16A34A">100%</div><div class="pc-stat-lbl">SLA %</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style="color:#16A34A">&#10003;</span></div><div class="pc-stat-lbl">Over SLA</div></div>
+  </div>
+</div><div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-avatar">JS</div>
+    <div class="pc-name-block">
+      <div class="pc-name">Jayson Santiago</div>
+      <span class="pill-t1">T1 Student</span>
+    </div>
+  </div>
+  <div class="pc-stats">
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#16A34A">1</div><div class="pc-stat-lbl">Resolved</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">2</div><div class="pc-stat-lbl">New</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">1</div><div class="pc-stat-lbl">Open</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">2</div><div class="pc-stat-lbl">Comments</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style='color:#16A34A;font-weight:700'>0d</span></div><div class="pc-stat-lbl">Avg Time</div></div>
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#DC2626">0%</div><div class="pc-stat-lbl">SLA %</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style="color:#16A34A">&#10003;</span></div><div class="pc-stat-lbl">Over SLA</div></div>
+  </div>
+</div><div class="pc-card">
+  <div class="pc-head">
+    <div class="pc-avatar">IL</div>
+    <div class="pc-name-block">
+      <div class="pc-name">Ian Lopez</div>
+      <span class="pill-t1">T1 Student</span>
+    </div>
+  </div>
+  <div class="pc-stats">
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#16A34A">4</div><div class="pc-stat-lbl">Resolved</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">3</div><div class="pc-stat-lbl">New</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">2</div><div class="pc-stat-lbl">Open</div></div>
+    <div class="pc-stat"><div class="pc-stat-val">8</div><div class="pc-stat-lbl">Comments</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style='color:#DC2626;font-weight:700'>8.8d</span></div><div class="pc-stat-lbl">Avg Time</div></div>
+    <div class="pc-stat"><div class="pc-stat-val" style="color:#DC2626">50%</div><div class="pc-stat-lbl">SLA %</div></div>
+    <div class="pc-stat"><div class="pc-stat-val"><span style="color:#16A34A">&#10003;</span></div><div class="pc-stat-lbl">Over SLA</div></div>
+  </div>
+</div></div>
+  </div>
+
+  <!-- Category Breakdown -->
+  <div class="section">
+    <div class="sec-hdr">
+      <h2>Tickets by Department</h2>
+      <span class="sec-chip">123 new this week</span>
+    </div>
+    <table class="data-tbl">
+      <thead><tr><th>Department / Category</th><th>Volume</th><th class="n-cell">#</th><th class="n-cell">%</th></tr></thead>
+      <tbody><tr><td>Help Desk</td><td><div class='bar-wrap'><div class='bar-fill' style='width:100%'></div></div></td><td class='n-cell'><strong>41</strong></td><td class='n-cell' style='color:#6B7280'>33%</td></tr>
+<tr><td>Information Security</td><td><div class='bar-wrap'><div class='bar-fill' style='width:44%'></div></div></td><td class='n-cell'><strong>18</strong></td><td class='n-cell' style='color:#6B7280'>15%</td></tr>
+<tr><td>Equipment</td><td><div class='bar-wrap'><div class='bar-fill' style='width:41%'></div></div></td><td class='n-cell'><strong>17</strong></td><td class='n-cell' style='color:#6B7280'>14%</td></tr>
+<tr><td>S2</td><td><div class='bar-wrap'><div class='bar-fill' style='width:29%'></div></div></td><td class='n-cell'><strong>12</strong></td><td class='n-cell' style='color:#6B7280'>10%</td></tr>
+<tr><td>Enterprise Applications</td><td><div class='bar-wrap'><div class='bar-fill' style='width:24%'></div></div></td><td class='n-cell'><strong>10</strong></td><td class='n-cell' style='color:#6B7280'>8%</td></tr>
+<tr><td>Uncategorized</td><td><div class='bar-wrap'><div class='bar-fill' style='width:12%'></div></div></td><td class='n-cell'><strong>5</strong></td><td class='n-cell' style='color:#6B7280'>4%</td></tr>
+<tr><td>Email/Calendaring</td><td><div class='bar-wrap'><div class='bar-fill' style='width:12%'></div></div></td><td class='n-cell'><strong>5</strong></td><td class='n-cell' style='color:#6B7280'>4%</td></tr>
+<tr><td>Telecommunication</td><td><div class='bar-wrap'><div class='bar-fill' style='width:10%'></div></div></td><td class='n-cell'><strong>4</strong></td><td class='n-cell' style='color:#6B7280'>3%</td></tr>
+<tr><td>Desktop Management</td><td><div class='bar-wrap'><div class='bar-fill' style='width:7%'></div></div></td><td class='n-cell'><strong>3</strong></td><td class='n-cell' style='color:#6B7280'>2%</td></tr>
+<tr><td>Network Connectivity</td><td><div class='bar-wrap'><div class='bar-fill' style='width:7%'></div></div></td><td class='n-cell'><strong>3</strong></td><td class='n-cell' style='color:#6B7280'>2%</td></tr></tbody>
+    </table>
+  </div>
+
+  <!-- Escalations -->
+  <div class="section">
+    <div class="sec-hdr">
+      <h2>Escalations This Week</h2>
+      <span class="sec-chip style="background:rgba(220,38,38,.1);color:#DC2626"">47 total &nbsp;|&nbsp; T3: 19 &nbsp;|&nbsp; T2: 28</span>
+    </div>
+    <h3 class='esc-hdr' style='color:#DC2626'>Escalated to Tier 3 <span class='esc-count'>19</span></h3><table class='data-tbl' style='margin-bottom:18px'><thead><tr><th>Key</th><th>Summary</th><th>Assignee</th><th>Escalated By</th><th>Change</th><th>When</th></tr></thead><tbody><tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83280' target='_blank'>ISD2-83280</a></td><td class='sum-cell'>Issue with PC excepting Pathway to Metlife link</td><td>Cameron Ugi</td><td>Karen Porter</td><td style='white-space:nowrap'>T2 &rarr; T3</td><td style='white-space:nowrap;color:#6B7280'>Thu 3/26 4:04 PM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83199' target='_blank'>ISD2-83199</a></td><td class='sum-cell'>Need internet connection to my new workstation</td><td>David Stofflet</td><td>Alec Lewis</td><td style='white-space:nowrap'>T1 &rarr; T3</td><td style='white-space:nowrap;color:#6B7280'>Wed 3/25 5:27 PM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83286' target='_blank'>ISD2-83286</a></td><td class='sum-cell'>Blue 9 Upgrade - Integrations Team Needed</td><td>Casey Gorman</td><td>Karen Porter</td><td style='white-space:nowrap'>T2 &rarr; T3</td><td style='white-space:nowrap;color:#6B7280'>Thu 3/26 4:11 PM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83283' target='_blank'>ISD2-83283</a></td><td class='sum-cell'>Add provided Banner ID and UDCID to UPD employees.</td><td>Eric Alstrom</td><td>Michael Sheldon</td><td style='white-space:nowrap'>T1 &rarr; T3</td><td style='white-space:nowrap;color:#6B7280'>Thu 3/26 2:13 PM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83256' target='_blank'>ISD2-83256</a></td><td class='sum-cell'>Library Email account</td><td>Michael Sheldon</td><td>Alec Lewis</td><td style='white-space:nowrap'>T1 &rarr; T3</td><td style='white-space:nowrap;color:#6B7280'>Wed 3/25 3:21 PM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83241' target='_blank'>ISD2-83241</a></td><td class='sum-cell'>New employee- VoiceMail request</td><td></td><td>Karen Porter</td><td style='white-space:nowrap'>T2 &rarr; T3</td><td style='white-space:nowrap;color:#6B7280'>Wed 3/25 10:21 AM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83224' target='_blank'>ISD2-83224</a></td><td class='sum-cell'>New employee- VoiceMail request</td><td></td><td>Miguel Carvajal</td><td style='white-space:nowrap'>T1 &rarr; T3</td><td style='white-space:nowrap;color:#6B7280'>Tue 3/24 11:57 AM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83240' target='_blank'>ISD2-83240</a></td><td class='sum-cell'>Port Activation for SIM LAB Computer A09-1059/RK1-A10</td><td>Zack Aziz</td><td>Karen Porter</td><td style='white-space:nowrap'>T2 &rarr; T3</td><td style='white-space:nowrap;color:#6B7280'>Wed 3/25 9:44 AM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83244' target='_blank'>ISD2-83244</a></td><td class='sum-cell'>Matt Leader email has been blocked due to sending out to many emails</td><td>Robert Martell</td><td>Karen Porter</td><td style='white-space:nowrap'>T2 &rarr; T3</td><td style='white-space:nowrap;color:#6B7280'>Wed 3/25 10:22 AM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83211' target='_blank'>ISD2-83211</a></td><td class='sum-cell'>New employee- VoiceMail request</td><td>Zack Aziz</td><td>Miguel Carvajal</td><td style='white-space:nowrap'>T2 &rarr; T3</td><td style='white-space:nowrap;color:#6B7280'>Tue 3/24 9:58 AM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83216' target='_blank'>ISD2-83216</a></td><td class='sum-cell'>New employee- VoiceMail request</td><td>Zack Aziz</td><td>Miguel Carvajal</td><td style='white-space:nowrap'>T2 &rarr; T3</td><td style='white-space:nowrap;color:#6B7280'>Tue 3/24 9:58 AM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83190' target='_blank'>ISD2-83190</a></td><td class='sum-cell'>Access to EMS Dev</td><td>Michael Sheldon</td><td>Michael Sheldon</td><td style='white-space:nowrap'>T1 &rarr; T3</td><td style='white-space:nowrap;color:#6B7280'>Mon 3/23 5:19 PM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83221' target='_blank'>ISD2-83221</a></td><td class='sum-cell'>Access to AWS</td><td>Cameron Ugi</td><td>Alec Lewis</td><td style='white-space:nowrap'>T2 &rarr; T3</td><td style='white-space:nowrap;color:#6B7280'>Tue 3/24 1:41 PM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83230' target='_blank'>ISD2-83230</a></td><td class='sum-cell'>FW: Netwrix Auditor Subscription</td><td>Michael Sheldon</td><td>Alec Lewis</td><td style='white-space:nowrap'>T1 &rarr; T3</td><td style='white-space:nowrap;color:#6B7280'>Tue 3/24 1:40 PM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83189' target='_blank'>ISD2-83189</a></td><td class='sum-cell'>Gradescope Blocked?</td><td>Jacob Kelsey</td><td>Alec Lewis</td><td style='white-space:nowrap'>T1 &rarr; T3</td><td style='white-space:nowrap;color:#6B7280'>Mon 3/23 3:39 PM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83191' target='_blank'>ISD2-83191</a></td><td class='sum-cell'>Azure access</td><td>Cameron Ugi</td><td>Jean-Paul Bouvier</td><td style='white-space:nowrap'>T1 &rarr; T3</td><td style='white-space:nowrap;color:#6B7280'>Mon 3/23 3:22 PM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83184' target='_blank'>ISD2-83184</a></td><td class='sum-cell'>Add access to Registrar email</td><td>Michael Sheldon</td><td>Miguel Carvajal</td><td style='white-space:nowrap'>T2 &rarr; T3</td><td style='white-space:nowrap;color:#6B7280'>Mon 3/23 12:20 PM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83192' target='_blank'>ISD2-83192</a></td><td class='sum-cell'>New Employee Shared Inbox</td><td>Michael Sheldon</td><td>Michael Sheldon</td><td style='white-space:nowrap'>T2 &rarr; T3</td><td style='white-space:nowrap;color:#6B7280'>Mon 3/23 5:15 PM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83165' target='_blank'>ISD2-83165</a></td><td class='sum-cell'>Registration of Device</td><td>Jacob Kelsey</td><td>Jean-Paul Bouvier</td><td style='white-space:nowrap'>T1 &rarr; T3</td><td style='white-space:nowrap;color:#6B7280'>Mon 3/23 7:38 AM</td></tr></tbody></table><h3 class='esc-hdr' style='color:#B45309'>Escalated to Tier 2 <span class='esc-count'>28</span></h3><table class='data-tbl' style='margin-bottom:18px'><thead><tr><th>Key</th><th>Summary</th><th>Assignee</th><th>Escalated By</th><th>Change</th><th>When</th></tr></thead><tbody><tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83280' target='_blank'>ISD2-83280</a></td><td class='sum-cell'>Issue with PC excepting Pathway to Metlife link</td><td>Cameron Ugi</td><td>Tyler Reuter</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Thu 3/26 1:25 PM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83286' target='_blank'>ISD2-83286</a></td><td class='sum-cell'>Blue 9 Upgrade - Integrations Team Needed</td><td>Casey Gorman</td><td>Tyler Reuter</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Thu 3/26 3:43 PM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83260' target='_blank'>ISD2-83260</a></td><td class='sum-cell'>WEB 1003 Key Card Access</td><td>Jean-Paul Bouvier</td><td>Jean-Paul Bouvier</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Thu 3/26 4:05 PM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83266' target='_blank'>ISD2-83266</a></td><td class='sum-cell'>Collect IT related assets from Rawa Adla</td><td>Michael Rice</td><td>Michael Rice</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Thu 3/26 9:37 AM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83265' target='_blank'>ISD2-83265</a></td><td class='sum-cell'>Not able to login to Workday after Last name / account change</td><td>Miguel Carvajal</td><td>Miguel Carvajal</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Thu 3/26 9:40 AM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83213' target='_blank'>ISD2-83213</a></td><td class='sum-cell'>New employee- Equipment request</td><td>Michael Rice</td><td>Michael Rice</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Tue 3/24 9:49 AM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83241' target='_blank'>ISD2-83241</a></td><td class='sum-cell'>New employee- VoiceMail request</td><td></td><td>Muneeb Elyaman</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Wed 3/25 9:48 AM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83249' target='_blank'>ISD2-83249</a></td><td class='sum-cell'>Possible spam/virus Fwd: Action Required: Please Review and Sign Q1 Financial Report via DocuSign</td><td>Karen Porter</td><td>Karen Porter</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Wed 3/25 11:40 AM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83240' target='_blank'>ISD2-83240</a></td><td class='sum-cell'>Port Activation for SIM LAB Computer A09-1059/RK1-A10</td><td>Zack Aziz</td><td>Joshua Gottus</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Wed 3/25 8:57 AM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83244' target='_blank'>ISD2-83244</a></td><td class='sum-cell'>Matt Leader email has been blocked due to sending out to many emails</td><td>Robert Martell</td><td>Joshua Gottus</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Wed 3/25 10:05 AM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83195' target='_blank'>ISD2-83195</a></td><td class='sum-cell'>Worker Account Reactivation Trouble</td><td>Alec Lewis</td><td>Sirish Gurung</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Wed 3/25 12:17 PM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83214' target='_blank'>ISD2-83214</a></td><td class='sum-cell'>Teams Update &amp; jamf</td><td>Karen Porter</td><td>Karen Porter</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Wed 3/25 11:42 AM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83243' target='_blank'>ISD2-83243</a></td><td class='sum-cell'>Microphone Access - Surface Pro</td><td>Miguel Carvajal</td><td>Miguel Carvajal</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Wed 3/25 10:20 AM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83242' target='_blank'>ISD2-83242</a></td><td class='sum-cell'>New employee- Equipment request</td><td>Michael Rice</td><td>Michael Rice</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Wed 3/25 9:31 AM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83211' target='_blank'>ISD2-83211</a></td><td class='sum-cell'>New employee- VoiceMail request</td><td>Zack Aziz</td><td>Ian Lopez</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Tue 3/24 9:18 AM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83216' target='_blank'>ISD2-83216</a></td><td class='sum-cell'>New employee- VoiceMail request</td><td>Zack Aziz</td><td>Ian Lopez</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Tue 3/24 9:21 AM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83221' target='_blank'>ISD2-83221</a></td><td class='sum-cell'>Access to AWS</td><td>Cameron Ugi</td><td>Mynor Mendez</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Tue 3/24 11:48 AM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83225' target='_blank'>ISD2-83225</a></td><td class='sum-cell'>New employee- Equipment request</td><td>Michael Rice</td><td>Michael Rice</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Tue 3/24 12:02 PM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83209' target='_blank'>ISD2-83209</a></td><td class='sum-cell'>Adobe Docu-Sign Issue</td><td>Robert Martell</td><td>Muneeb Elyaman</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Tue 3/24 9:55 AM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83176' target='_blank'>ISD2-83176</a></td><td class='sum-cell'>Equipment request for new employee Katie Daniel</td><td>Michael Rice</td><td>Michael Rice</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Mon 3/23 10:45 AM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83212' target='_blank'>ISD2-83212</a></td><td class='sum-cell'>New employee- Equipment request</td><td>Michael Rice</td><td>Michael Rice</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Tue 3/24 9:49 AM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83215' target='_blank'>ISD2-83215</a></td><td class='sum-cell'>New employee- Equipment request</td><td>Michael Rice</td><td>Michael Rice</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Tue 3/24 9:48 AM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83207' target='_blank'>ISD2-83207</a></td><td class='sum-cell'>Collect IT related assets from Marcie Hoecker</td><td>Michael Rice</td><td>Michael Rice</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Tue 3/24 9:36 AM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83217' target='_blank'>ISD2-83217</a></td><td class='sum-cell'>New employee- Equipment request</td><td>Michael Rice</td><td>Michael Rice</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Tue 3/24 9:47 AM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83184' target='_blank'>ISD2-83184</a></td><td class='sum-cell'>Add access to Registrar email</td><td>Michael Sheldon</td><td>Sirish Gurung</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Mon 3/23 12:10 PM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83192' target='_blank'>ISD2-83192</a></td><td class='sum-cell'>New Employee Shared Inbox</td><td>Michael Sheldon</td><td>Sirish Gurung</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Mon 3/23 3:23 PM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83182' target='_blank'>ISD2-83182</a></td><td class='sum-cell'>4.1.26 Event Service Request (BARC Video Wall) - Music Association - Poly's Got Talent (75734)</td><td>Joel Wood</td><td>Demitry Box-Louine</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Mon 3/23 11:38 AM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83170' target='_blank'>ISD2-83170</a></td><td class='sum-cell'>4.1.26 Event Service Request (Building Access) - Middle School Counselor Training (69490)</td><td>Jean-Paul Bouvier</td><td>Jean-Paul Bouvier</td><td style='white-space:nowrap'>T1 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Mon 3/23 8:34 AM</td></tr></tbody></table><h3 class='esc-hdr' style='color:#0369A1'>De-escalated / Sent Back <span class='esc-count'>3</span></h3><table class='data-tbl' style='margin-bottom:18px'><thead><tr><th>Key</th><th>Summary</th><th>Assignee</th><th>Escalated By</th><th>Change</th><th>When</th></tr></thead><tbody><tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83249' target='_blank'>ISD2-83249</a></td><td class='sum-cell'>Possible spam/virus Fwd: Action Required: Please Review and Sign Q1 Financial Report via DocuSign</td><td>Karen Porter</td><td>Karen Porter</td><td style='white-space:nowrap'>T2 &rarr; T1</td><td style='white-space:nowrap;color:#6B7280'>Wed 3/25 11:41 AM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83195' target='_blank'>ISD2-83195</a></td><td class='sum-cell'>Worker Account Reactivation Trouble</td><td>Alec Lewis</td><td>Alec Lewis</td><td style='white-space:nowrap'>T3 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Wed 3/25 3:51 PM</td></tr>
+<tr><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83195' target='_blank'>ISD2-83195</a></td><td class='sum-cell'>Worker Account Reactivation Trouble</td><td>Alec Lewis</td><td>Alec Lewis</td><td style='white-space:nowrap'>T2 &rarr; T2</td><td style='white-space:nowrap;color:#6B7280'>Wed 3/25 3:50 PM</td></tr></tbody></table>
+  </div>
+
+  <!-- Open Over SLA -->
+  <div class="section">
+    <div class="sec-hdr">
+      <h2>Open Tickets Over SLA</h2>
+      <span class="sec-chip" style="background:rgba(220,38,38,.1);color:#DC2626">117 tickets</span>
+    </div>
+    <table class='data-tbl'><thead><tr><th>Key</th><th>Summary</th><th>Assigned To</th><th>Tier</th><th class='n-cell'>Age (Bus. Days)</th><th>Status</th><th>Priority</th></tr></thead><tbody><tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-68387' target='_blank'>ISD2-68387</a></td><td class='sum-cell'>Software Installation: Docker / Kubernetes Software</td><td>Michael Rice</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>448d</span></td><td>Pending</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-69036' target='_blank'>ISD2-69036</a></td><td class='sum-cell'>request for new vm image / linux server</td><td>Guillermo Fernandez</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>433d</span></td><td>Escalated Tier 2</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-69899' target='_blank'>ISD2-69899</a></td><td class='sum-cell'>AV enhancements to BARC-1101</td><td>Joel Wood</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>413d</span></td><td>In Progress</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-71915' target='_blank'>ISD2-71915</a></td><td class='sum-cell'>RE: Guest net ID and password</td><td>Joel Wood</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>367d</span></td><td>In Progress</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-74575' target='_blank'>ISD2-74575</a></td><td class='sum-cell'>Asset TS-001121 Checked Out to kporter@floridapoly.edu</td><td><em style="color:#9CA3AF">Unassigned</em></td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>318d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-74706' target='_blank'>ISD2-74706</a></td><td class='sum-cell'>Asset TS-001189 Checked Out to rmartell@floridapoly.edu</td><td><em style="color:#9CA3AF">Unassigned</em></td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>314d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-75283' target='_blank'>ISD2-75283</a></td><td class='sum-cell'>Request for Help Setting up Jira</td><td>Guillermo Fernandez</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>297d</span></td><td>In Progress</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-75496' target='_blank'>ISD2-75496</a></td><td class='sum-cell'>request to add domain users to linux utility</td><td>Guillermo Fernandez</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>291d</span></td><td>Escalated Tier 2</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-75982' target='_blank'>ISD2-75982</a></td><td class='sum-cell'>Asset TS-003138 Checked Out to ekelly@floridapoly.edu</td><td><em style="color:#9CA3AF">Unassigned</em></td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>276d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-76232' target='_blank'>ISD2-76232</a></td><td class='sum-cell'>Capital Asset - Tag Equipment: ATSS - John Causey (JP)</td><td>Joel Wood</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>267d</span></td><td>In Progress</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-76233' target='_blank'>ISD2-76233</a></td><td class='sum-cell'>Capital Asset - Tag Equipment: ATSS - John Causey</td><td>Joel Wood</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>267d</span></td><td>In Progress</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-76336' target='_blank'>ISD2-76336</a></td><td class='sum-cell'>Towle Game Expos VM</td><td>Guillermo Fernandez</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>264d</span></td><td>In Progress</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-76781' target='_blank'>ISD2-76781</a></td><td class='sum-cell'>Windows 11 Static Desktop</td><td>Guillermo Fernandez</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>252d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-76948' target='_blank'>ISD2-76948</a></td><td class='sum-cell'>Cell Phones T-Mobile Clean-up</td><td>Michael Rice</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>246d</span></td><td>Pending</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-77080' target='_blank'>ISD2-77080</a></td><td class='sum-cell'>Asset TS-001367 Checked Out to jbunn@floridapoly.edu</td><td><em style="color:#9CA3AF">Unassigned</em></td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>241d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-77106' target='_blank'>ISD2-77106</a></td><td class='sum-cell'>Asset TS-001772 Checked Out to fyang@floridapoly.edu</td><td><em style="color:#9CA3AF">Unassigned</em></td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>240d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-77248' target='_blank'>ISD2-77248</a></td><td class='sum-cell'>Asset TS-003339 Checked Out to crenew@floridapoly.edu</td><td><em style="color:#9CA3AF">Unassigned</em></td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>234d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-77251' target='_blank'>ISD2-77251</a></td><td class='sum-cell'>Asset TS-002492 Checked Out to dstephenson@floridapoly.edu</td><td><em style="color:#9CA3AF">Unassigned</em></td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>234d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-77252' target='_blank'>ISD2-77252</a></td><td class='sum-cell'>Jira Space Impact Form</td><td>Guillermo Fernandez</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>234d</span></td><td>Escalated Tier 3</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-77357' target='_blank'>ISD2-77357</a></td><td class='sum-cell'>Asset TS-001219 Checked Out to jarrettlane@floridapoly.edu</td><td><em style="color:#9CA3AF">Unassigned</em></td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>232d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-77412' target='_blank'>ISD2-77412</a></td><td class='sum-cell'>Asset TS-002041 Checked Out to sbommanaboyana@floridapoly.edu</td><td><em style="color:#9CA3AF">Unassigned</em></td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>231d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-77461' target='_blank'>ISD2-77461</a></td><td class='sum-cell'>Asset TS-001219 Checked Out to cgorman@floridapoly.edu</td><td><em style="color:#9CA3AF">Unassigned</em></td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>230d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-77462' target='_blank'>ISD2-77462</a></td><td class='sum-cell'>Asset TS-002704 Checked Out to cgorman@floridapoly.edu</td><td><em style="color:#9CA3AF">Unassigned</em></td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>230d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-77500' target='_blank'>ISD2-77500</a></td><td class='sum-cell'>Forms to add to our JIRA page</td><td>Guillermo Fernandez</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>230d</span></td><td>Escalated Tier 3</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-77839' target='_blank'>ISD2-77839</a></td><td class='sum-cell'>Asset TS-001638 Checked Out to cgorman@floridapoly.edu</td><td><em style="color:#9CA3AF">Unassigned</em></td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>221d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-77842' target='_blank'>ISD2-77842</a></td><td class='sum-cell'>Asset TS-002586 Checked Out to lmarrone@floridapoly.edu</td><td><em style="color:#9CA3AF">Unassigned</em></td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>221d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-78043' target='_blank'>ISD2-78043</a></td><td class='sum-cell'>Asset TS-003603 Checked Out to aalnaser@floridapoly.edu</td><td><em style="color:#9CA3AF">Unassigned</em></td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>213d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-78044' target='_blank'>ISD2-78044</a></td><td class='sum-cell'>Asset TS-003615 Checked Out to ehale@floridapoly.edu</td><td><em style="color:#9CA3AF">Unassigned</em></td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>213d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-78045' target='_blank'>ISD2-78045</a></td><td class='sum-cell'>Asset TS-003608 Checked Out to mbrilleslyper@floridapoly.edu</td><td><em style="color:#9CA3AF">Unassigned</em></td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>213d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-78046' target='_blank'>ISD2-78046</a></td><td class='sum-cell'>Asset TS-003612 Checked Out to abardall@floridapoly.edu</td><td><em style="color:#9CA3AF">Unassigned</em></td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>213d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-78100' target='_blank'>ISD2-78100</a></td><td class='sum-cell'>Asset TS-003604 Checked Out to bmullins@floridapoly.edu</td><td><em style="color:#9CA3AF">Unassigned</em></td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>210d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-78103' target='_blank'>ISD2-78103</a></td><td class='sum-cell'>Asset TS-001441 Checked Out to ebard@floridapoly.edu</td><td><em style="color:#9CA3AF">Unassigned</em></td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>210d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-78668' target='_blank'>ISD2-78668</a></td><td class='sum-cell'>Request to add file to previous canvas course</td><td>Brennen Cannon</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>181d</span></td><td>Escalated Tier 2</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-78827' target='_blank'>ISD2-78827</a></td><td class='sum-cell'>Requesting Entra Permissions to Create Confluence Groups</td><td>Guillermo Fernandez</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>175d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-78837' target='_blank'>ISD2-78837</a></td><td class='sum-cell'>Career Services Ipad Kiosks Question.</td><td>Guillermo Fernandez</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>175d</span></td><td>Escalated Tier 2</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-79117' target='_blank'>ISD2-79117</a></td><td class='sum-cell'>remote access</td><td>Guillermo Fernandez</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>165d</span></td><td>Additional Info Provided</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-80018' target='_blank'>ISD2-80018</a></td><td class='sum-cell'>File Explorer Keeps Crashing</td><td>Michael Rice</td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>142d</span></td><td>In Progress</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-80140' target='_blank'>ISD2-80140</a></td><td class='sum-cell'>Need 4-5 computers/laptops with Ubuntu OS installed</td><td>Michael Rice</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>139d</span></td><td>Pending</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-80142' target='_blank'>ISD2-80142</a></td><td class='sum-cell'>President's Office Apple TV Screen Connectivity</td><td>Joel Wood</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>139d</span></td><td>In Progress</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-80398' target='_blank'>ISD2-80398</a></td><td class='sum-cell'>File Explorer Kicks Me Out and Laptop Running Slowly</td><td>Michael Rice</td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>128d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-80626' target='_blank'>ISD2-80626</a></td><td class='sum-cell'>Fw: Automation rule 'Add TMonaco as watcher to inspections' failed</td><td>Guillermo Fernandez</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>120d</span></td><td>In Progress</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-80649' target='_blank'>ISD2-80649</a></td><td class='sum-cell'>Create an intranet site for the Grants dept. </td><td>Guillermo Fernandez</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>120d</span></td><td>Escalated Tier 2</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-80928' target='_blank'>ISD2-80928</a></td><td class='sum-cell'>Adobe License Entitlements</td><td>Guillermo Fernandez</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>111d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-81015' target='_blank'>ISD2-81015</a></td><td class='sum-cell'>Jira new project selection ( Requesting addtional information Workflow)</td><td>Guillermo Fernandez</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>107d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-81353' target='_blank'>ISD2-81353</a></td><td class='sum-cell'>DrawBoard pending download. Requested, approved and installed around 2019 </td><td>Michael Rice</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>95d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-81414' target='_blank'>ISD2-81414</a></td><td class='sum-cell'>Would like to purchase a laptop and a desktop using my startup fund</td><td>Michael Rice</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>92d</span></td><td>Pending</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-81574' target='_blank'>ISD2-81574</a></td><td class='sum-cell'>Fw: workstation request</td><td>Michael Rice</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>82d</span></td><td>Pending</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-81589' target='_blank'>ISD2-81589</a></td><td class='sum-cell'>Access Card for Crown Electric 13456</td><td>Jean-Paul Bouvier</td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>81d</span></td><td>Pending</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-81599' target='_blank'>ISD2-81599</a></td><td class='sum-cell'>Lockdown Browser issues with Windows gesture </td><td>Guillermo Fernandez</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>80d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-81646' target='_blank'>ISD2-81646</a></td><td class='sum-cell'>Library Computer Return, needs to be set aside</td><td>Guillermo Fernandez (El)</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>78d</span></td><td>Pending</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-81778' target='_blank'>ISD2-81778</a></td><td class='sum-cell'>Installing SQLite on Linux lab machine</td><td>Guillermo Fernandez</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>62d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-81788' target='_blank'>ISD2-81788</a></td><td class='sum-cell'>X-Drive Access for Student Business Services Member</td><td>Will Bowden</td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>62d</span></td><td>To Do</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-81890' target='_blank'>ISD2-81890</a></td><td class='sum-cell'>combine canvas sections</td><td>Brennen Cannon</td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>57d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-81899' target='_blank'>ISD2-81899</a></td><td class='sum-cell'>Update the sleep time on Macbook Pro</td><td>Karen Porter</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>57d</span></td><td>Additional Info Provided</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82118' target='_blank'>ISD2-82118</a></td><td class='sum-cell'>Vector Data Feed</td><td>Noah Gadelrab</td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>51d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82149' target='_blank'>ISD2-82149</a></td><td class='sum-cell'>Asset TS-003770 Checked Out to kburt@floridapoly.edu</td><td><em style="color:#9CA3AF">Unassigned</em></td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>51d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82150' target='_blank'>ISD2-82150</a></td><td class='sum-cell'>Asset TS-002644 Checked Out to kburt@floridapoly.edu</td><td><em style="color:#9CA3AF">Unassigned</em></td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>51d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82151' target='_blank'>ISD2-82151</a></td><td class='sum-cell'>Asset TS-003299 Checked Out to kburt@floridapoly.edu</td><td><em style="color:#9CA3AF">Unassigned</em></td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>51d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82182' target='_blank'>ISD2-82182</a></td><td class='sum-cell'>AVD Workspace</td><td>Guillermo Fernandez</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>50d</span></td><td>Pending</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82232' target='_blank'>ISD2-82232</a></td><td class='sum-cell'>Asset TS-000604 Checked Out to melyaman@floridapoly.edu</td><td><em style="color:#9CA3AF">Unassigned</em></td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>47d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82333' target='_blank'>ISD2-82333</a></td><td class='sum-cell'>TVs in the Phoenix</td><td>Joel Wood</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>44d</span></td><td>In Progress</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82381' target='_blank'>ISD2-82381</a></td><td class='sum-cell'>New installation request</td><td>Will Bowden</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>42d</span></td><td>Escalated Tier 2</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82442' target='_blank'>ISD2-82442</a></td><td class='sum-cell'>Potential High severity OpenSSH vulnerabilities on S2 MicroNode+</td><td>Jean-Paul Bouvier</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>40d</span></td><td>In Progress</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82475' target='_blank'>ISD2-82475</a></td><td class='sum-cell'>MacBook-DM6NWR7QFQ - needs updates, security patches and Tahoe OS</td><td>Karen Porter</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>39d</span></td><td>Request Additional Info</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82477' target='_blank'>ISD2-82477</a></td><td class='sum-cell'>Small Printer in BARC-2261-pending approval by copycenter</td><td>Karen Porter</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>39d</span></td><td>Pending</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82570' target='_blank'>ISD2-82570</a></td><td class='sum-cell'>Visix Digital Signage Summary</td><td>Guillermo Fernandez</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>35d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82578' target='_blank'>ISD2-82578</a></td><td class='sum-cell'>Printer Issue- MC-Y2P3VGGX6W</td><td>Karen Porter</td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>34d</span></td><td>Pending</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82592' target='_blank'>ISD2-82592</a></td><td class='sum-cell'>Asset TS-003863 Checked Out to hngo@floridapoly.edu</td><td><em style="color:#9CA3AF">Unassigned</em></td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>33d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82617' target='_blank'>ISD2-82617</a></td><td class='sum-cell'>Audio</td><td>Nathan Duarte Cader</td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>32d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82658' target='_blank'>ISD2-82658</a></td><td class='sum-cell'>Inquiry About Computer for Research Instrument (BARC 2251)</td><td>Michael Rice</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>31d</span></td><td>In Progress</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82664' target='_blank'>ISD2-82664</a></td><td class='sum-cell'>git bash application has stopped working on laptop</td><td><em style="color:#9CA3AF">Unassigned</em></td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>30d</span></td><td>Request Additional Info</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82672' target='_blank'>ISD2-82672</a></td><td class='sum-cell'>Asset TS-001441 Checked Out to tolin@floridapoly.edu</td><td><em style="color:#9CA3AF">Unassigned</em></td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>30d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82686' target='_blank'>ISD2-82686</a></td><td class='sum-cell'>High severity vulnerabilities on A/V network</td><td>Joel Wood</td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>29d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82722' target='_blank'>ISD2-82722</a></td><td class='sum-cell'>Install VR-supported software and make sure Unity is completely installed.</td><td>Mynor Mendez</td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>27d</span></td><td>Additional Info Provided</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82754' target='_blank'>ISD2-82754</a></td><td class='sum-cell'>Jira changes to reduce spam</td><td>Guillermo Fernandez</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>26d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82774' target='_blank'>ISD2-82774</a></td><td class='sum-cell'>Laptop for New Hire</td><td>Michael Rice</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>26d</span></td><td>In Progress</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82807' target='_blank'>ISD2-82807</a></td><td class='sum-cell'>Josh Milikin - Surface Pro</td><td>Michael Rice</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>25d</span></td><td>Pending</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82816' target='_blank'>ISD2-82816</a></td><td class='sum-cell'>Cellphone upgrades-Comms Team</td><td>Michael Rice</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>24d</span></td><td>In Progress</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82823' target='_blank'>ISD2-82823</a></td><td class='sum-cell'>Clean Up Confluence Articles </td><td>Jayson Santiago</td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>24d</span></td><td>Request Additional Info</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82825' target='_blank'>ISD2-82825</a></td><td class='sum-cell'>Equipment for Commecement</td><td>Jean-Paul Bouvier</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>24d</span></td><td>Additional Info Provided</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82860' target='_blank'>ISD2-82860</a></td><td class='sum-cell'>Laptop Loan</td><td>Demitry Box-Louine</td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>22d</span></td><td>In Progress</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82889' target='_blank'>ISD2-82889</a></td><td class='sum-cell'>Potential OpenSSH vulnerabilities on HPC Linux devices</td><td>Guillermo Fernandez</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>21d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82911' target='_blank'>ISD2-82911</a></td><td class='sum-cell'>Critical vulnerability on A/V equipment</td><td>Joel Wood</td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>20d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82914' target='_blank'>ISD2-82914</a></td><td class='sum-cell'>A/V in WEL 1146</td><td>Joel Wood</td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>20d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82956' target='_blank'>ISD2-82956</a></td><td class='sum-cell'>Replace Old  IPAD </td><td>Michael Rice</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>18d</span></td><td>Additional Info Provided</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82986' target='_blank'>ISD2-82986</a></td><td class='sum-cell'>Checked Out USB Cable</td><td>Anthony Corrales Zapata</td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>17d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-82998' target='_blank'>ISD2-82998</a></td><td class='sum-cell'>Safety Concern Form Updates in Jira</td><td>Guillermo Fernandez</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>17d</span></td><td>Escalated Tier 2</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83002' target='_blank'>ISD2-83002</a></td><td class='sum-cell'>Need the paid version of GoodNotes for iOS on iPad-DMPF18JBPV03</td><td>Karen Porter</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>17d</span></td><td>Escalated Tier 2</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83004' target='_blank'>ISD2-83004</a></td><td class='sum-cell'>UPD Duty Phone Replacement</td><td>Michael Rice</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>17d</span></td><td>Pending</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83024' target='_blank'>ISD2-83024</a></td><td class='sum-cell'>New employee- Equipment request</td><td>Michael Rice</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>16d</span></td><td>In Progress</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83028' target='_blank'>ISD2-83028</a></td><td class='sum-cell'>SOC Workers - JIRA access</td><td>Guillermo Fernandez</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>16d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83029' target='_blank'>ISD2-83029</a></td><td class='sum-cell'>BARC 2251 research computers update</td><td><em style="color:#9CA3AF">Unassigned</em></td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>16d</span></td><td>In Progress</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83039' target='_blank'>ISD2-83039</a></td><td class='sum-cell'>Projector check</td><td>Nathan Duarte Cader</td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>15d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83067' target='_blank'>ISD2-83067</a></td><td class='sum-cell'>Installing PSTrace software on laptop</td><td>Ian Lopez</td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>14d</span></td><td>Pending</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83072' target='_blank'>ISD2-83072</a></td><td class='sum-cell'>Loaner Laptops for Banner Buzz Event </td><td>Jean-Paul Bouvier</td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>14d</span></td><td>Pending</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83073' target='_blank'>ISD2-83073</a></td><td class='sum-cell'>Collect IT related assets from Michael West</td><td>Michael Rice</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>14d</span></td><td>In Progress</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83075' target='_blank'>ISD2-83075</a></td><td class='sum-cell'>Request a loaner lapton </td><td>Michael Rice</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>14d</span></td><td>Pending</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83083' target='_blank'>ISD2-83083</a></td><td class='sum-cell'>JIRA</td><td>Guillermo Fernandez</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>13d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83089' target='_blank'>ISD2-83089</a></td><td class='sum-cell'>Purchase of Instructional Equipment with Startup Grant Funds</td><td>Michael Rice</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>13d</span></td><td>Pending</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83103' target='_blank'>ISD2-83103</a></td><td class='sum-cell'>errors</td><td>Karen Porter</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>12d</span></td><td>Request Additional Info</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83124' target='_blank'>ISD2-83124</a></td><td class='sum-cell'>New employee- Equipment request</td><td>Michael Rice</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>11d</span></td><td>In Progress</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83127' target='_blank'>ISD2-83127</a></td><td class='sum-cell'>File Transfer issue for shared docs within Teams channel for &quot;Grants Administration&quot; </td><td>Karen Porter</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#991B1B;font-weight:800'>11d</span></td><td>Pending</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83137' target='_blank'>ISD2-83137</a></td><td class='sum-cell'>IST&amp; BARC Kiosk Rental Open Transactions</td><td>Miguel Carvajal</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#DC2626;font-weight:700'>10d</span></td><td>Pending</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83146' target='_blank'>ISD2-83146</a></td><td class='sum-cell'>RE: Reminder: The password for your Florida Poly account will expire in 15 days</td><td>Alec Lewis</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#DC2626;font-weight:700'>9d</span></td><td>Pending</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83150' target='_blank'>ISD2-83150</a></td><td class='sum-cell'>3.27.26-3.29.26 Event Service Request (BARC Video Wall) - 2026 Spring Musical (73770)</td><td>Joel Wood</td><td><span class="pill-t1">T1</span></td><td class='n-cell'><span style='color:#DC2626;font-weight:700'>9d</span></td><td>Waiting for Support</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83152' target='_blank'>ISD2-83152</a></td><td class='sum-cell'>Laptop EOL Upgrade - Rochelle Cart</td><td>Michael Rice</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#DC2626;font-weight:700'>9d</span></td><td>Pending</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83164' target='_blank'>ISD2-83164</a></td><td class='sum-cell'>Zoom OAuth credentials</td><td>Karen Porter</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#DC2626;font-weight:700'>8d</span></td><td>Additional Info Provided</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83176' target='_blank'>ISD2-83176</a></td><td class='sum-cell'>Equipment request for new employee Katie Daniel</td><td>Michael Rice</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#DC2626;font-weight:700'>7d</span></td><td>In Progress</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83182' target='_blank'>ISD2-83182</a></td><td class='sum-cell'>4.1.26 Event Service Request (BARC Video Wall) - Music Association - Poly's Got Talent (75734)</td><td>Joel Wood</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#DC2626;font-weight:700'>7d</span></td><td>Escalated Tier 2</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83207' target='_blank'>ISD2-83207</a></td><td class='sum-cell'>Collect IT related assets from Marcie Hoecker</td><td>Michael Rice</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#DC2626;font-weight:700'>6d</span></td><td>Pending</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83212' target='_blank'>ISD2-83212</a></td><td class='sum-cell'>New employee- Equipment request</td><td>Michael Rice</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#DC2626;font-weight:700'>6d</span></td><td>In Progress</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83213' target='_blank'>ISD2-83213</a></td><td class='sum-cell'>New employee- Equipment request</td><td>Michael Rice</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#DC2626;font-weight:700'>6d</span></td><td>Pending</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83215' target='_blank'>ISD2-83215</a></td><td class='sum-cell'>New employee- Equipment request</td><td>Michael Rice</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#DC2626;font-weight:700'>6d</span></td><td>In Progress</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83217' target='_blank'>ISD2-83217</a></td><td class='sum-cell'>New employee- Equipment request</td><td>Michael Rice</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#DC2626;font-weight:700'>6d</span></td><td>In Progress</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83225' target='_blank'>ISD2-83225</a></td><td class='sum-cell'>New employee- Equipment request</td><td>Michael Rice</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#DC2626;font-weight:700'>6d</span></td><td>In Progress</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83226' target='_blank'>ISD2-83226</a></td><td class='sum-cell'>Matlab error</td><td>Michael Rice</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#DC2626;font-weight:700'>6d</span></td><td>In Progress</td><td>Medium</td></tr>
+<tr class='sla-row'><td><a href='https://floridapoly.atlassian.net/browse/ISD2-83228' target='_blank'>ISD2-83228</a></td><td class='sum-cell'>Accreditation Onsite Technology Needs</td><td>Jean-Paul Bouvier</td><td><span class="pill-t2">T2</span></td><td class='n-cell'><span style='color:#DC2626;font-weight:700'>6d</span></td><td>In Progress</td><td>Medium</td></tr></tbody></table>
+  </div>
+
+</div><!-- /page -->
+
+<footer class="footer">
+  <strong>Florida Polytechnic University</strong> &nbsp;&middot;&nbsp; Technology Support &nbsp;&middot;&nbsp; IT Help Desk &nbsp;&middot;&nbsp; Jira ISD2<br>
+  Generated Wednesday, April 1, 2026 at 8:49 PM &nbsp;&middot;&nbsp; Week of March 23 – 27, 2026
+</footer>
+
+</body>
+</html>
